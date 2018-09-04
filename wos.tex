@@ -170,7 +170,16 @@ and it is header-only which enables easier drop-in integration into existing app
 \section{Introduction}
 \label{sec::introduction}
 Parallel computing is getting increasingly prevalent and important as a
-chip now can accomodate multiple processing units. 
+single chip now can accomodate multiple processing units. 
+Parallel computing is also very useful to EDA applications as recent
+trend~\cite{stok}\cite{Lu2018} shows the EDA tools gain significantly speedup
+by scaling to multicores.  Programming a parallel application is a challenging
+task because of the indeterministic nature of the concurrent thread execution.
+The parallelism might lead to unexpected result if one does not properly
+control the execution flow.  Therefore, developers need to devote substantial
+efforts to write a parallel applications. 
+
+
 
 \section{Parallel programming}
 
