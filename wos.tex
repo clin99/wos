@@ -133,11 +133,12 @@ Therefore, compared to writing sequential code, developers need to devote
 more efforts to correctly implement a parallel program.
 
 C++ is the most widely used programming language for developing EDA
-applications due to its high performance and it has included facilities to support
-parallel computing in the standard library, such as \textit{thread} object,
-\textit{mutex}, \textit{lock} and etc.  The standard library enables the programmers 
-to implement the parallel applications using those low-level APIs, but it is 
-not scalable when the 
+applications due to its high performance and it has included essential
+facilities to support parallel computing in the standard library, such as the
+\textit{thread} object, \textit{mutex}, \textit{lock} and etc.  The standard
+library enables the programmers to build the parallel applications from scratch 
+but it is not scalable primarily because of the low-level thread managements.
+
 
 %Therefore, developers need to devote substantial
 %efforts to write a parallel applications. 
