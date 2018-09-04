@@ -152,6 +152,11 @@ when tasks dependencies become complex.
 % tbb are not expressive in API to describe parallel applications especially
 % when tasks dependencies become complex
 
+In this paper, we present Cpp-Taskflow, a header-only library implemented in 
+modern C++17. The main idea of Cpp-Taskflow is to let users describe the 
+dependency among tasks as a directed graph and the tasks will be executed in
+parallel following the given dependency. This model is very intuitive and 
+is sufficient to express most parallel patterns.
 
 
 
