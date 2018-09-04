@@ -134,15 +134,27 @@ more efforts to correctly implement a parallel program.
 
 C++ is the most widely used programming language for developing EDA
 applications due to its high performance and it has included essential
-facilities to support parallel computing in the standard library ~\cite{cpp-thread}, such as the
+facilities to support parallel computing in the standard library~\cite{cpp-thread}, such as the
 \textit{thread} object, \textit{mutex}, \textit{lock} and etc.  The standard
 library enables the programmers to build the parallel applications from scratch 
 but it is not scalable primarily because of the low-level thread managements.
-Several libraries are invented to aid the the development of parallel program such as 
-OpenMP~\cite{openmp} and Intel Thread Building Blocks (TBB)~\cite{tbb}. 
+In addition to the standard library, several libraries are invented to aid the
+the development of parallel program such as OpenMP~\cite{openmp} and Intel
+Thread Building Blocks (TBB)~\cite{tbb}.  OpenMP provides users a set of
+predefined directives to annotate the desired parallelism and the compiler generates
+the parallel code based on the annotations. Intel TBB is a template library that supports 
+many APIs for different parallel execution patterns. Although both libraries 
+solve the low-level thread management problem of standard library, they require
+compiler support and library installation which causes the integration
+into existing projects quite inconvenient. Furthermore, both libraries 
+are not expressive in API to describe parallel applications especially
+when tasks dependencies become complex.
+% tbb are not expressive in API to describe parallel applications especially
+% when tasks dependencies become complex
 
-%Therefore, developers need to devote substantial
-%efforts to write a parallel applications. 
+
+
+
 
 
 
