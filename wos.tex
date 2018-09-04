@@ -134,18 +134,19 @@ more efforts to correctly implement a parallel program.
 
 C++ is the most widely used programming language for developing EDA
 applications due to its high performance and it has included essential
-facilities to support parallel computing in the standard library, such as the
+facilities to support parallel computing in the standard library ~\cite{cpp-thread}, such as the
 \textit{thread} object, \textit{mutex}, \textit{lock} and etc.  The standard
 library enables the programmers to build the parallel applications from scratch 
 but it is not scalable primarily because of the low-level thread managements.
-
+Several libraries are invented to aid the the development of parallel program such as 
+OpenMP~\cite{openmp} and Intel Thread Building Blocks (TBB)~\cite{tbb}. 
 
 %Therefore, developers need to devote substantial
 %efforts to write a parallel applications. 
 
 
 
-\section{Parallel programming}
+\section{Cpp-Taskflow}
 
 
 

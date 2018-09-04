@@ -5,8 +5,8 @@ read: pdf
 
 
 pdf: ps
-	ps2pdf $(FILE_NAME).ps
-	bibtex $(FILE_NAME)
+	ps2pdf $(FILE_NAME).ps 
+
 
 ps: dvi
 	dvips -t letter -Pdownload35 -o $(FILE_NAME).ps $(FILE_NAME).dvi
@@ -14,6 +14,9 @@ ps: dvi
 
 dvi: 
 	latex $(FILE_NAME).tex
+	bibtex $(FILE_NAME)
+	latex $(FILE_NAME).tex 
+	bibtex $(FILE_NAME)
 
 clean: 
 	rm $(FILE_NAME).{ps,pdf,log,aux,dvi}
