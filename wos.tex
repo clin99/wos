@@ -1,5 +1,5 @@
 \documentclass[sigconf]{acmart}
-\settopmatter{authorsperrow=3}
+\settopmatter{authorsperrow=4}
 \usepackage{booktabs} % For formal tables 
 
 \usepackage{multirow}
@@ -46,13 +46,15 @@
 %\setlength{\evensidemargin}{-.62in}
 
 % This line disables the ACM reference format
-\settopmatter{printacmref=false}
+\settopmatter{printacmref=false} 
+% removes footnote with conference information in first column
+\renewcommand\footnotetextcopyrightpermission[1]{} 
 
 \begin{document}%\sloppy
 %\SetAlFnt{\small}
 
 \fancyhead{}
-\title{cpp-Taskflow: }
+\title{Cpp-Taskflow: Fast Parallel Programming with Task Dependency Graphs}
 
 
 
@@ -71,6 +73,14 @@
   \country{USA}
 }
 \email{twh760812@gmail.com}
+%
+\author{Guannan Guo}
+\affiliation{%
+  \institution{Dept. of ECE, UIUC}
+  \state{IL}
+  \country{USA}
+}
+\email{guannan4@gmail.com}
 %
 \author{Martin D. F. Wong}
 \affiliation{%
