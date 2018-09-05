@@ -195,8 +195,8 @@ program.
 
 
 \section{Cpp-Taskflow}
-From a high-level view, Cpp-Taskflow uses a DAG to represent the dependency
-between tasks. A node in the DAG encapsulates a task and an edge
+Cpp-Taskflow uses a DAG to represent the task dependencies.
+A node in the DAG encapsulates a task and an edge
 indicates the dependency between two tasks.  A task will be executed when all
 its predecessors are executed.  Cpp-Taskflow internally employs a thread pool
 to execute all tasks. 
@@ -210,7 +210,7 @@ Listing \ref{SimpleExample} shows how to use the basic APIs of Cpp-Taskflow to c
 
 int main(){
   
-  tf::Taskflow tf(4);
+  tf::Taskflow tf(4);  // taskflow with 4 workers
 
   // Add 4 tasks
   auto [A, B, C, D] = tf.silent_emplace(
@@ -220,12 +220,12 @@ int main(){
     [] () { std::cout << "TaskD\n"; }                
   );                                                 
                                                      
-  A.precede(B);  // B runs after A                   
+  A.precede(B);  // B runs after A
   A.precede(C);  // C runs after A                   
   B.precede(D);  // D runs after B                   
   C.precede(D);  // D runs after C                   
                                                      
-  tf.wait_for_all();  // block until finished
+  tf.wait_for_all();  // block until finish
 
   return 0;
 }

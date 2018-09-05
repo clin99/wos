@@ -41,4 +41,8 @@ Yi-Shan Lu and Keshav Pingali.
 {I}ntel {T}hreading {B}uilding {B}locks.
 \newblock \url{https://www.threadingbuildingblocks.org/}.
 
+\bibitem{graphviz}
+{G}raphviz.
+\newblock \url{https://www.graphviz.org/}.
+
 \end{thebibliography}
