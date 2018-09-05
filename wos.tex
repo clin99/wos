@@ -25,6 +25,23 @@
 \setlist[steps, 1]{label = S\arabic*:}
 
 
+\lstset{
+  frame=tb,
+  tabsize=2,
+  showstringspaces=false,
+  language=C++,
+  basicstyle=\footnotesize,
+  captionpos=b,
+  keywordstyle=\color{blue},
+  stringstyle=\color{red},
+  numbers=left,
+  xleftmargin=1em, 
+  framexleftmargin=1.1em, 
+  numbersep=3pt % spacing between line numbers and code
+}
+
+\def\codeinline{\lstinline[basicstyle=\small\color{darkgray},language=C++]}
+
 %\captionsetup[table]{skip=4pt}
 %\setlength{\textfloatsep}{3pt}
 %\setlength{\intextsep}{2pt}
@@ -163,7 +180,7 @@ when tasks dependencies become complex.
 
 In this paper, we present Cpp-Taskflow, a header-only and zero-dependency library written in 
 modern C++17. Cpp-Taskflow lets users describe the 
-task dependencies in a directed acyclic graph fasion execute tasks in parallel.
+task dependencies in a directed acyclic graph (DAG) fasion execute tasks in parallel.
 This model is very intuitive to use
 and is sufficient to express most parallel execution patterns. 
 The thread execution is automatically undertaken by Cpp-Taskflow and users only need to
@@ -176,11 +193,50 @@ program.
 
 
 \section{Cpp-Taskflow}
-Cpp-Taskflow uses a graph to represent the dependency between tasks. A node in the graph 
-encapsulates a task to be executed and an edge indicates the execution order of two tasks.
-A task will be executed 
+From a high-level view, Cpp-Taskflow uses a DAG to represent the dependency
+between tasks. A node in the DAG encapsulates a task and an edge
+indicates the dependency between two tasks.  A task will be executed when all
+its predecessors are executed.  Cpp-Taskflow internally employs a thread pool
+to execute all tasks. 
 
 \subsection{Static Tasking}
+Listing \ref{SimpleExample} shows how to use the basic APIs of Cpp-Taskflow to create a DAG with 4 tasks.
+
+\begin{lstlisting}[language=C++,label=SimpleExample,caption={A simple example.}]
+// Cpp-Taskflow is header-only
+#include <taskflow/taskflow.hpp>  
+
+int main(){
+  
+  tf::Taskflow tf(4);
+
+  // Add 4 tasks
+  auto [A, B, C, D] = tf.silent_emplace(
+    [] () { std::cout << "TaskA\n"; },               
+    [] () { std::cout << "TaskB\n"; },               
+    [] () { std::cout << "TaskC\n"; },               
+    [] () { std::cout << "TaskD\n"; }                
+  );                                                 
+                                                     
+  A.precede(B);  // B runs after A                   
+  A.precede(C);  // C runs after A                   
+  B.precede(D);  // D runs after B                   
+  C.precede(D);  // D runs after C                   
+                                                     
+  tf.wait_for_all();  // block until finished
+
+  return 0;
+}
+\end{lstlisting} 
+
+First to use Cpp-Taskflow, only a single header \codeinline{taskflow.hpp} needs to be included (line 2). 
+In line 6, a \codeinline{Taskflow} object \codeinline{tf} is created with 4 threads in its thread pool. From line 9-14,
+four tasks \codeinline{A, B, C, D} are added into \codeinline{tf}. The task dependency is annotated using the API 
+\codeinline{precede} from line 16-19. In line 21, the DAG is executed by invoking the API \codeinline{wait_for_all} which 
+blocks until all tasks finish. In this example, task \codeinline{A} will be first executed. Then  
+successors \codeinline{B} and \codeinline{C} will be executed in parallel. Task \codeinline{D} is the 
+last executed.
+
 
 \subsection{Dynamic Tasking}
 
