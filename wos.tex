@@ -40,7 +40,7 @@
   numbersep=3pt % spacing between line numbers and code
 }
 
-\def\codeinline{\lstinline[basicstyle=\small\color{darkgray},language=C++]}
+\def\codeinline{\lstinline[basicstyle=\normalsize\color{darkgray},language=C++]}
 
 %\captionsetup[table]{skip=4pt}
 %\setlength{\textfloatsep}{3pt}
@@ -282,7 +282,59 @@ int main(){
 
 
 \subsection{Dynamic Tasking}
+Another powerful feature of Cpp-Taskflow is \emph{dynamic tasking}, i.e. a task can spawn 
+new tasks with dependency during execution. The new tasks are grouped into a subflow graph 
+and executed as a normal dependency graph. Listing~\ref{DynamicTaskingExample} shows an 
+example of dynamic tasking and figure~\ref{fig::dynamic} is the dependency graph.
 
+\begin{lstlisting}[language=C++,label=DynamicTaskingExample,caption={A dynamic tasking example.}]
+#include <taskflow/taskflow.hpp>  
+
+int main(){
+
+  tf::Taskflow tf(8);  
+
+  // create three regular tasks
+  auto A = tf.silent_emplace([](){}).name("A");
+  auto C = tf.silent_emplace([](){}).name("C");
+  auto D = tf.silent_emplace([](){}).name("D");
+  
+  // create a subflow graph (dynamic tasking)
+  auto B = tf.silent_emplace([] (auto& subflow) {
+    auto B1 = subflow.silent_emplace([](){}).name("B1");
+    auto B2 = subflow.silent_emplace([](){}).name("B2");
+    auto B3 = subflow.silent_emplace([](){}).name("B3");
+    B1.precede(B3);
+    B2.precede(B3);
+  }).name("B");
+              
+  A.precede(B);  // B runs after A 
+  A.precede(C);  // C runs after A 
+  B.precede(D);  // D runs after B 
+  C.precede(D);  // D runs after C 
+  
+  // execute the graph without cleanning up topologies
+  tf.wait_for_all();
+
+  return 0;
+}
+\end{lstlisting} 
+
+\begin{figure}[htb]
+ \centering
+ \includegraphics[width=1.0\columnwidth]{Fig/dynamic.eps}
+  \caption{
+    The dependency graph of Listing~\ref{DynamicTaskingExample}.
+  }
+ \label{fig::dynamic}
+\end{figure}
+
+In Listing~\ref{DynamicTaskingExample}, we create a dependency graph with 4
+tasks \codeinline{A, B, C} and \codeinline{D} from line 8-13. From line 14-18,
+task \codeinline{B} further spawns 3 tasks \codeinline{B1, B2} and
+\codeinline{B3} by grouping them in a \codeinline{subflow}. By default, a
+\codeinline{subflow} joins to the parent node (task \codeinline{B} here), which 
+guarantees the \codeinline{subflow} will be executed before the successors of its parent.
 
 
 \subsection{Thread Pool}
