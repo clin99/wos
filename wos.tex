@@ -50,7 +50,9 @@
 % removes footnote with conference information in first column
 \renewcommand\footnotetextcopyrightpermission[1]{} 
 
-\begin{document}%\sloppy
+\begin{document}
+
+\sloppy
 %\SetAlFnt{\small}
 
 \fancyhead{}
@@ -97,14 +99,19 @@
 
 
 \begin{abstract}
-Nowadays the CPU has multiple cores and it's becoming common for software 
-developers to utilize those computing resources to increase the performance of their applications.
+As we move to multi-core era, 
+it's important for software developers to apply multi-threading to 
+increase the performance of their applications.
 However, parallel programming is much more difficult than writing a sequential program, 
 especially when complex parallel patterns exist in the application. 
-In this paper, we introduce Cpp-Taskflow \cite{cpp-taskflow}, a header-only library that is implemented in
-modern C++17 that aims to help quickly develop a parallel application. Cpp-Taskflow lets 
-users build dependency task graphs to express their parallel patterns in an intuitive way 
-and it is header-only which enables easier drop-in integration into existing applications.
+In this paper, we introduce Cpp-Taskflow \cite{cpp-taskflow}, a zero-dependency library 
+written in modern C++17 to help programmers 
+quickly build parallel task dependency graphs.
+Cpp-Taskflow has a very neat and expressive API that allows users to master multi-threading 
+in just a few minutes.
+Compared with existing libraries, Cpp-Taskflow is more cost-efficient 
+in performance scaling and software integration.
+
 
 %is more than having multiple threads 
 %executing at the same time, 
@@ -120,27 +127,29 @@ and it is header-only which enables easier drop-in integration into existing app
 
 \section{Introduction}
 \label{sec::introduction}
-Parallel computing is getting increasingly prevalent and important as a single
-chip now can accomodate multiple processing units and is no doubt a pivotal
+As a single chip accommodates more and more processing units,
+parallel computing is getting increasingly important
+and is no doubt a pivotal
 component in building high-performance software. 
-Parallel computing is also very useful to EDA applications as the recent
+Parallel computing is also very useful for EDA applications as the recent
 trend~\cite{routing}~\cite{ot}~\cite{stok}\cite{Lu2018} shows the EDA tools gain significantly speedup
-by scaling to multicores.  Programming a parallel application is a challenging
-task because of the indeterministic nature of the concurrent thread execution.
-The parallelism might lead to unexpected result if one does not properly
-control the execution flow.  
+by scaling to multiple cores. 
+However, programming parallel applications is a very challenging task
+because of difficult concurrency controls.
+Immature parallelism might lead to unexpected result if one does not properly
+design the control flow.  
 Therefore, compared to writing sequential code, developers need to devote 
-more efforts to correctly implement a parallel program.
+more efforts to implementing a correct parallel program.
 
 C++ is the most widely used programming language for developing EDA
-applications due to its high performance and it has included essential
-facilities to support parallel computing in the standard library~\cite{cpp-thread}, such as the
-\textit{thread} object, \textit{mutex}, \textit{lock} and etc.  The standard
+applications due to its high performance and robust standard library~\cite{cpp-thread}
+in support for multi-threading.
+The standard
 library enables the programmers to build the parallel applications from scratch 
-but it is not scalable primarily because of the low-level thread managements.
-In addition to the standard library, several libraries are invented to expedite the
+but it is not flexible because of low-level thread managements.
+In addition to the standard library, several libraries are invented to expedite
 the development of parallel program such as OpenMP~\cite{openmp} and Intel
-Thread Building Blocks (TBB)~\cite{tbb}.  OpenMP provides users a set of
+Thread Building Blocks (TBB)~\cite{tbb}. OpenMP provides users a set of
 predefined directives to annotate the desired parallelism and the compiler generates
 the parallel code based on the annotations. Intel TBB is a template library that supports 
 many APIs for different parallel execution patterns. Although both libraries 
@@ -152,23 +161,31 @@ when tasks dependencies become complex.
 % tbb are not expressive in API to describe parallel applications especially
 % when tasks dependencies become complex
 
-In this paper, we present Cpp-Taskflow, a header-only library implemented in 
-modern C++17. The main idea of Cpp-Taskflow is to let users describe the 
-dependency among tasks as a directed graph and the tasks will be executed in
-parallel following the given dependency. This model is very intuitive to use
+In this paper, we present Cpp-Taskflow, a header-only and zero-dependency library written in 
+modern C++17. Cpp-Taskflow lets users describe the 
+task dependencies in a directed acyclic graph fasion execute tasks in parallel.
+This model is very intuitive to use
 and is sufficient to express most parallel execution patterns. 
 The thread execution is automatically undertaken by Cpp-Taskflow and users only need to
 focus on maximizing the parallelism without wrestling with the low-level thread
-managements. The library is header-only which allows effortless integration
-into existing software.  In following sections, we introduce the programming
+managements. The library is header-only which allows drop-in software integration.
+In the following sections, we introduce the programming
 model of Cpp-Taskflow and the associated APIs for implementing a parallel
 program.
+
 
 
 \section{Cpp-Taskflow}
 Cpp-Taskflow uses a graph to represent the dependency between tasks. A node in the graph 
 encapsulates a task to be executed and an edge indicates the execution order of two tasks.
 A task will be executed 
+
+\subsection{Static Tasking}
+
+\subsection{Dynamic Tasking}
+
+
+\subsection{Thread Pool}
 
 
 \section{ACKNOWLEDGMENT}

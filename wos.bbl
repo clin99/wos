@@ -1,9 +1,44 @@
 \begin{thebibliography}{1}
 
-\bibitem{PG1}
-C.~J. Wei, H.~Chen, and S.~J. Chen.
-\newblock Design and {I}mplementation of {B}lock-{B}ased {P}artitioning for
-  {P}arallel {F}lip-{C}hip {P}ower-{G}rid {A}nalysis.
-\newblock {\em TCAD}, 31(3):370--379, March 2012.
+\bibitem{cpp-taskflow}
+{C}pp-{T}askflow.
+\newblock \url{https://github.com/cpp-taskflow/cpp-taskflow}.
+
+\bibitem{routing}
+Wen-Hao Liu, Wei-Chun Kao, Yih-Lang Li, and Kai-Yuan Chao.
+\newblock Multi-threaded collision-aware global routing with bounded-length
+  maze routing.
+\newblock In {\em Proceedings of the 47th Design Automation Conference}, DAC
+  '10, pages 200--205, New York, NY, USA, 2010. ACM.
+
+\bibitem{ot}
+Tsung-Wei Huang and Martin D.~F. Wong.
+\newblock Opentimer: A high-performance timing analysis tool.
+\newblock In {\em Proceedings of the IEEE/ACM International Conference on
+  Computer-Aided Design}, ICCAD '15, pages 895--902, Piscataway, NJ, USA, 2015.
+  IEEE Press.
+
+\bibitem{stok}
+L.~Stok.
+\newblock Developing parallel eda tools [the last byte].
+\newblock {\em IEEE Design Test}, 30(1):65--66, Feb 2013.
+
+\bibitem{Lu2018}
+Yi-Shan Lu and Keshav Pingali.
+\newblock {\em Can Parallel Programming Revolutionize EDA Tools?}, pages
+  21--41.
+\newblock Springer International Publishing, Cham, 2018.
+
+\bibitem{cpp-thread}
+{T}hread support library.
+\newblock \url{https://en.cppreference.com/w/cpp/thread}.
+
+\bibitem{openmp}
+{O}pen{M}{P}.
+\newblock \url{https://www.openmp.org/}.
+
+\bibitem{tbb}
+{I}ntel {T}hreading {B}uilding {B}locks.
+\newblock \url{https://www.threadingbuildingblocks.org/}.
 
 \end{thebibliography}

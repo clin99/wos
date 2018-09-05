@@ -1,46 +1,48 @@
-This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
-Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: wos.aux
 The style file: unsrt.bst
 Database file #1: sigproc.bib
-You've used 1 entry,
+Warning--can't use both author and editor fields in Lu2018
+You've used 8 entries,
             1791 wiz_defined-function locations,
-            453 strings with 3686 characters,
-and the built_in function-call counts, 265 in all, are:
-= -- 21
-> -- 11
-< -- 0
-+ -- 4
-- -- 3
-* -- 25
-:= -- 48
-add.period$ -- 3
-call.type$ -- 1
-change.case$ -- 1
+            493 strings with 4559 characters,
+and the built_in function-call counts, 1715 in all, are:
+= -- 169
+> -- 38
+< -- 3
++ -- 17
+- -- 9
+* -- 81
+:= -- 219
+add.period$ -- 22
+call.type$ -- 8
+change.case$ -- 7
 chr.to.int$ -- 0
-cite$ -- 1
-duplicate$ -- 9
-empty$ -- 25
-format.name$ -- 3
-if$ -- 55
+cite$ -- 9
+duplicate$ -- 89
+empty$ -- 199
+format.name$ -- 9
+if$ -- 427
 int.to.chr$ -- 0
-int.to.str$ -- 1
-missing$ -- 1
-newline$ -- 8
-num.names$ -- 1
-pop$ -- 1
+int.to.str$ -- 8
+missing$ -- 5
+newline$ -- 39
+num.names$ -- 4
+pop$ -- 36
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 3
+skip$ -- 71
 stack$ -- 0
-substring$ -- 21
-swap$ -- 1
-text.length$ -- 0
+substring$ -- 103
+swap$ -- 34
+text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 0
-while$ -- 2
-width$ -- 2
-write$ -- 13
+warning$ -- 1
+while$ -- 14
+width$ -- 9
+write$ -- 81
+(There was 1 warning)
