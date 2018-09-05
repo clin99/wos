@@ -1,0 +1,31 @@
+digraph Topology {
+  rankdir=LR;
+"0x1ffc710";
+"0x1ffc710" -> "0x1ffc788";
+"0x1ffc710" -> "A";
+"0x1ffc788";
+"A";
+"A" -> "B";
+"A" -> "C";
+"B";
+"B" -> "D";
+subgraph cluster_B {
+label = "Subflow_B";
+color=blue
+"0x7f437c000f28";
+"0x7f437c000f28" -> "B2";
+"0x7f437c000f28" -> "B1";
+"0x7f437c000f28" -> "B";
+"B3" [style=filled, fillcolor=yellow];
+"B3" -> "B";
+"B2" [style=filled, fillcolor=yellow];
+"B2" -> "B3";
+"B1" [style=filled, fillcolor=yellow];
+"B1" -> "B3";
+}
+"C";
+"C" -> "D";
+"D";
+"D" -> "0x1ffc788";
+}
+
