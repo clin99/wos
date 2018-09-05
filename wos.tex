@@ -244,11 +244,45 @@ It is clear users can easily parallelize task execution with complex dependency
 by using those concise APIs to build DAGs. Debugging parallel programs are known 
 to be difficult. Cpp-Taskflow eases the burden by providing a API
 \codeinline{dump} to export the DAG in Graphviz~\cite{graphviz} format. 
-With the visualization capability, users can directly check the execution order 
-without 
+With the visualization capability, users can directly inspect the execution order 
+to identify potential bugs.  Figure~\ref{fig::debug}
+shows the dependency graph exported from Listing~\ref{DebugExample}.
+
+
+\begin{lstlisting}[language=C++,label=DebugExample,caption={A debugging example.}]
+#include <taskflow/taskflow.hpp>  
+
+int main(){
+  
+  tf::Taskflow tf(4);  
+  auto A = tf.silent_emplace([](){}).name("A");
+  auto B = tf.silent_emplace([](){}).name("B");
+  auto C = tf.silent_emplace([](){}).name("C");
+  auto D = tf.silent_emplace([](){}).name("D");
+  auto E = tf.silent_emplace([](){}).name("E");
+  
+  A.broadcast(B, C, E); 
+  C.precede(D);
+  B.broadcast(D, E); 
+  
+  std::cout << tf.dump();
+
+  return 0;
+}
+\end{lstlisting} 
+
+\begin{figure}[htb]
+ \centering
+ \includegraphics[width=.6\columnwidth]{Fig/debug.eps}
+  \caption{
+    The dependency graph of Listing~\ref{DebugExample}.
+  }
+ \label{fig::debug}
+\end{figure}
 
 
 \subsection{Dynamic Tasking}
+
 
 
 \subsection{Thread Pool}
