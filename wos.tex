@@ -284,10 +284,11 @@ int main(){
 
 
 \subsection{Dynamic Tasking}
-Another powerful feature of Cpp-Taskflow is \emph{dynamic tasking}, i.e. a task can spawn 
-new tasks with dependency during execution. The new tasks are grouped into a subflow graph 
-and executed as a normal dependency graph. Listing~\ref{DynamicTaskingExample} shows an 
-example of dynamic tasking and figure~\ref{fig::dynamic} is the dependency graph.
+Another powerful feature of Cpp-Taskflow is \emph{dynamic tasking}, i.e. a task
+can spawn new tasks with dependency during execution. The new tasks are grouped
+into a subflow graph and executed as a normal dependency graph.
+Listing~\ref{DynamicTaskingExample} shows an example of dynamic tasking and
+figure~\ref{fig::dynamic} is the corresponding dependency graph.
 
 \begin{lstlisting}[language=C++,label=DynamicTaskingExample,caption={A dynamic tasking example.}]
 #include <taskflow/taskflow.hpp>  
@@ -337,7 +338,18 @@ task \codeinline{B} further spawns 3 tasks \codeinline{B1, B2} and
 \codeinline{B3} by grouping them in a \codeinline{subflow}. By default, a
 \codeinline{subflow} joins to the parent node (task \codeinline{B} here), which 
 guarantees the \codeinline{subflow} will be executed before the successors of its parent.
+The \codeinline{subflow} can change to join with the end of the dependency
+graph by calling \codeinline{subflow.detach()}. Figure~\ref{fig::detach} shows the resulting 
+detached \codeinline{subflow}.
 
+\begin{figure}[htb]
+ \centering
+ \includegraphics[width=1.0\columnwidth]{Fig/detach.eps}
+  \caption{
+    A detached subflow example.
+  }
+ \label{fig::detach}
+\end{figure}
 
 \subsection{Thread Pool}
 
