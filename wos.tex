@@ -229,13 +229,23 @@ int main(){
 }
 \end{lstlisting} 
 
-First to use Cpp-Taskflow, only a single header \codeinline{taskflow.hpp} needs to be included (line 2). 
-In line 6, a \codeinline{Taskflow} object \codeinline{tf} is created with 4 threads in its thread pool. From line 9-14,
-four tasks \codeinline{A, B, C, D} are added into \codeinline{tf}. The task dependency is annotated using the API 
-\codeinline{precede} from line 16-19. In line 21, the DAG is executed by invoking the API \codeinline{wait_for_all} which 
-blocks until all tasks finish. In this example, task \codeinline{A} will be first executed. Then  
-successors \codeinline{B} and \codeinline{C} will be executed in parallel. Task \codeinline{D} is the 
-last executed.
+First to use Cpp-Taskflow, only a single header \codeinline{taskflow.hpp} needs
+to be included (line 2).  In line 6, a \codeinline{Taskflow} object
+\codeinline{tf} is created with 4 threads in its thread pool. From line 9-14,
+four tasks \codeinline{A, B, C, D} are added into \codeinline{tf} using the API
+\codeinline{silent_emplace}.  The task dependency is annotated using the API
+\codeinline{precede} from line 16-19. In line 21, the DAG is executed by
+invoking the API \codeinline{wait_for_all} which blocks until all tasks finish.
+In this example, task \codeinline{A} will be first executed. Then  successors
+\codeinline{B} and \codeinline{C} will be executed \emph{in parallel}. Task
+\codeinline{D} is the last executed.
+
+It is clear users can easily parallelize task execution with complex dependency 
+by using those concise APIs to build DAGs. Debugging parallel programs are known 
+to be difficult. Cpp-Taskflow eases the burden by providing a API
+\codeinline{dump} to export the DAG in Graphviz~\cite{graphviz} format. 
+With the visualization capability, users can directly check the execution order 
+without 
 
 
 \subsection{Dynamic Tasking}
