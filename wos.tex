@@ -155,12 +155,14 @@ when tasks dependencies become complex.
 In this paper, we present Cpp-Taskflow, a header-only library implemented in 
 modern C++17. The main idea of Cpp-Taskflow is to let users describe the 
 dependency among tasks as a directed graph and the tasks will be executed in
-parallel following the given dependency. This model is very intuitive and 
-is sufficient to express most parallel patterns.
-
-
-
-
+parallel following the given dependency. This model is very intuitive to use
+and is sufficient to express most parallel execution patterns. 
+The thread execution is automatically undertaken by Cpp-Taskflow and users only need to
+focus on maximizing the parallelism without wrestling with the low-level thread
+managements. The library is header-only which allows effortless integration
+into existing software.  In following sections, we introduce the programming
+model of Cpp-Taskflow and the associated APIs for implementing a parallel
+program.
 
 
 \section{Cpp-Taskflow}
