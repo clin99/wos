@@ -353,16 +353,24 @@ detached \codeinline{subflow}.
 
 \subsection{Thread Pool}
 
-  The Threadpool class is the engine of Cpp-Taskflow. It manages how independent tasks are distributed to
-allocated threads. Before each thread executes its task, it needs to obtain a Worker struct which contains 
-a local conditional variable and a function element. When a new task wants be deployed by the Threadpool, it
- will actively search for idle Workers that rest in the vector in Threadpool class. Once a spare Worker is found, 
-the sleeping thread associated with it will be notified through the local conditional variable in the Worker. The Worker
-won't be released until the task completes. Otherwise, if all threads are busy, 
-the new task will be pushed to a global pending queue waiting for a thread to finish its current task. The merit of 
-this scheduling strategy is to reduce the overhead of pushing the task to the pending queue, popping it from the queue and related competition 
+The Threadpool class is the task execution arena of Cpp-Taskflow. 
+It manages how tasks are distributed to
+allocated threads in a shared storage. 
+Before each thread executes its task, it needs to obtain a Worker struct which contains 
+a local conditional variable and a function element. 
+When a new task needs to be executed by a thread in the pool, it
+will actively search for idle Workers that rest in the thread pool.
+Once a spare Worker is found, 
+one sleeping thread will be notified through the local conditional variable in the Worker. The Worker
+won't be released until the task completes. 
+On the other hand, if all threads are busy, 
+the new task will be pushed to a global pending queue waiting for a thread to finish its current task. 
+The advantage of 
+this scheduling strategy is to reduce the overhead of pushing the task to the pending queue, 
+popping it out of the queue and related competition 
 over the shared mutex
-if a thread is found idle when a new task in inserted. Therefore, it can achieve a promising throughput for millions of lighweight tasks. 
+if a thread is found idle when a new task in inserted.
+Therefore, it can achieve a promising throughput for millions of lightweight tasks. 
 
 \section{ACKNOWLEDGMENT}
 
