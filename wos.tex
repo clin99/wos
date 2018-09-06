@@ -351,6 +351,49 @@ detached \codeinline{subflow}.
  \label{fig::detach}
 \end{figure}
 
+A \codeinline{subflow} can also spawn new tasks, i. e. users can recursively create nested 
+\codeinline{subflows}. Listing~\ref{NestedSubflowExample} show a nested \codeinline{subflow} and 
+the dependency graph is figure~\ref{fig::nested}.
+
+\begin{lstlisting}[language=C++,label=NestedSubflowExample,caption={A nested subflow example.}]
+#include <taskflow/taskflow.hpp>  
+
+int main(){
+
+  auto A = tf.silent_emplace([] (auto& sbf){
+    std::cout << "A spawns A1 & subflow A2\n";
+    auto A1 = sbf.silent_emplace([] () { 
+      std::cout << "subtask A1\n"; 
+    }).name("A1");
+  
+    auto A2 = sbf.silent_emplace([] (auto& sbf2){
+      std::cout << "A2 spawns A2_1 & A2_2\n";
+      auto A2_1 = sbf2.silent_emplace([] () { 
+        std::cout << "subtask A2_1\n"; 
+      }).name("A2_1");
+      auto A2_2 = sbf2.silent_emplace([] () { 
+        std::cout << "subtask A2_2\n"; 
+      }).name("A2_2");
+      A2_1.precede(A2_2);
+    }).name("A2");
+    A1.precede(A2);
+  }).name("A");
+
+  return 0;
+}
+\end{lstlisting} 
+
+
+\begin{figure}[htb]
+ \centering
+ \includegraphics[width=.9\columnwidth]{Fig/nested.eps}
+  \caption{
+    The dependency graph of Listing~\ref{NestedSubflowExample}.
+  }
+ \label{fig::nested}
+\end{figure}
+
+
 \subsection{Thread Pool}
 
 The Threadpool class is the task execution arena of Cpp-Taskflow. 
@@ -371,8 +414,19 @@ popping it out of the queue and related competition
 over the shared mutex
 if a thread is found idle when a new task in inserted.
 Therefore, it can achieve a promising throughput for millions of lightweight tasks. 
+Figure~\ref{fig::threadpool} outlines the thread pool in Cpp-Taskflow.
 
-\section{ACKNOWLEDGMENT}
+\begin{figure}[htb]
+ \centering
+ \includegraphics[width=1.\columnwidth]{Fig/threadpool.eps}
+  \caption{
+    Thread pool in Cpp-Taskflow.
+  }
+ \label{fig::threadpool}
+\end{figure}
+
+
+%\section{ACKNOWLEDGMENT}
 
 
 

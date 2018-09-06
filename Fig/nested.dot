@@ -1,0 +1,31 @@
+digraph Topology {
+"0x25d34a0";
+"0x25d34a0" -> "0x25d3518";
+"0x25d34a0" -> "A";
+"0x25d3518";
+"A";
+"A" -> "0x25d3518";
+subgraph cluster_A {
+label = "Subflow_A";
+color=blue
+"0x7fc2e4000e58";
+"0x7fc2e4000e58" -> "A1";
+"0x7fc2e4000e58" -> "A";
+"A2" [style=filled, fillcolor=yellow];
+"A2" -> "A";
+subgraph cluster_A2 {
+label = "Subflow_A2";
+color=blue
+"0x7fc2e4001068";
+"0x7fc2e4001068" -> "A2_1";
+"0x7fc2e4001068" -> "A2";
+"A2_2" [style=filled, fillcolor=green];
+"A2_2" -> "A2";
+"A2_1" [style=filled, fillcolor=green];
+"A2_1" -> "A2_2";
+}
+"A1" [style=filled, fillcolor=yellow];
+"A1" -> "A2";
+}
+}
+
